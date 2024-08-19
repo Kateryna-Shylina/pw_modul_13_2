@@ -1,0 +1,32 @@
+{% extends "quotesapp/base.html" %} 
+
+{% load extract_tags %} 
+
+{% block content %}
+
+<h1>{{author.fullname}}</h1>
+<p>Born Date: <kbd>{{author.born_date}}<kbd></p>
+<p>Born Location: <kbd>{{author.born_location}}</kbd></p>
+<p>Description: <kbd>{{author.description}}</kbd></p>
+
+<h2>Quotes:</h2>
+{% for quote in quotes %}
+    <p><kbd>{{ quote.quote }}</kbd></p>
+    <p>Status: 
+        {% if quote.status %}
+            <ins>Completed</ins>
+        {% else %}
+            <i>Not implemented</i>
+        {% endif %}
+    </p>
+    <p>Tags: 
+        <small>
+            {% for tag in quote.tags.all %}
+                {{ tag.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </small>
+    </p>
+    <hr>
+{% endfor %}
+
+{% endblock %}
